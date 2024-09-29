@@ -1,0 +1,143 @@
+\chapter{Categorical Language}
+
+In this chapter, we breifly intrduce the language of category theory.
+
+\section{(Rapid) Definitions}
+
+In this section we list some basic notions in category theory.
+We shall use sans serif capital letter to denote categories.
+
+\begin{defn}
+    A \emph{category} $\mathsf{C}$ consists of a collection $\Obj\mathsf{C}$ of \emph{objects} and a set of \emph{morphisms} $\Hom_\mathsf{C}(A,B)$ for each $A,B\in\Obj{\mathsf{C}}$, together with a mapping called \emph{composition} for each $A,B,C\in\Obj\mathsf{C}$
+    \[\circ:\Hom_\mathsf{C}(B,C)\times\Hom_\mathsf{C}(A,B)\to\Hom_\mathsf{C}(A,C)\]
+    satisfying:
+    \begin{enumerate}[(1)]
+        \item For any $f\in\Hom_\mathsf{C}(A,B)$, $g\in\Hom_\mathsf{C}(B,C)$ and $h\in\Hom_\mathsf{C}(C,D)$, the \emph{associative law} $(h\circ g)\circ f=h\circ(g\circ f)$ holds;
+        \item There exists an $\id_A\in\Hom_\mathsf{C}(A,A)$ for each $A\in\Obj\mathsf{C}$, satisfiying for any $f\in\Hom_\mathsf{C}(A,B)$ and $g\in\Hom_\mathsf{C}(C,A)$ the equalities $f\circ\id_A=f$ and $\id_A\circ g=g$ hold.
+    \end{enumerate}
+    We often write $f:A\to B$ for $f\in\Hom_\mathsf{C}(A,B)$.
+    If $\Obj\mathsf{C}$ is a set, we call $\mathsf{C}$ a \emph{small category}.
+\end{defn}
+
+\begin{eg}
+    We have the following common categories.
+    \begin{enumerate}
+        \item $\mathsf{Set}$, objects are sets, morphisms are mappings.
+        \item $\mathsf{Grp}$, objects are groups, morphisms are group homomorphisms.
+        \item $\mathsf{Ab}$, objects are abelian groups, morphisms are group homomorphisms.
+        \item $\mathsf{CRing}$, objects are commutative rings with multiplication identity element, morphisms are ring homomorphisms.
+        We shall assume rings are commutative and with multiplication element through out the note.
+        \item $\mathsf{Mod}_A$, objects are modules over ring $A$, morphisms are module homomorphisms.
+        \item $\mathsf{Top}$, objects are topological spaces, morphisms are maps, i.e.\ continuous mappings.
+    \end{enumerate}
+    We will encounter more categories in our tour.
+\end{eg}
+
+\begin{defn}
+    A morphism $f\in\Hom_\mathsf{C}(A,B)$ is called an \emph{isomorphism} if there exists a functor $g:B\to A$ such that $g\circ f=\id_A$ and $f\circ g=\id_B$.
+
+    A morphism $i\in\Hom_\mathsf{C}(A,B)$ is called a \emph{monomorphism} if for any $f,g\in\Hom_\mathsf{C}(B,C)$, $i\circ g=i\circ h$ implies $g=h$.
+    A morphism $e\in\Hom_\mathsf{C}(A,B)$ is called an \emph{epimorphism} if for any $f',g'\in\Hom_\mathsf{C}(D,A)$, $f'\circ e=g'\circ e$ implies $f'=g'$.
+\end{defn}
+
+\begin{defn}
+    A \emph{(covariant) functor} $F:\mathsf{C}\to\mathsf{D}$ from category $\mathsf{C}$ to $\mathsf{D}$ consists of an assignment $F(A)$ to each $A\in\Obj\mathsf{C}$, together with an assignment $F(f)\in\Hom_\mathsf{D}(F(A),F(B))$ to $f\in\Hom_\mathsf{C}(A,B)$ for each $A,B\in\Obj\mathsf{C}$, which preseves identity and is distributive to composition, i.e.\ $F(\id_A)=\id_{F(A)}$ for $A\in\Obj\mathsf{C}$ and $F(g)\circ F(f)=F(g\circ f)$ for $f\in\Hom_\mathsf{C}(A,B)$ and $g\in\Hom_\mathsf{C}(B,C)$.
+\end{defn}
+
+\begin{defn}
+    The \emph{opposite category} of a category $\mathsf{C}$, denoting $\mathsf{C}^{\mathrm{op}}$, consists of $\Obj\mathsf{C}^{\mathrm{op}}=\Obj\mathsf{C}$ and $\Hom_{\mathsf{C}^{\mathrm{op}}}(A,B)=\Hom_\mathsf{C}(B,A)$.
+    A \emph{contravariant functor} $F:\mathsf{C}\to\mathsf{D}$ is a covariant functor $\mathsf{C}^{\mathrm{op}}\to\mathsf{D}$.
+\end{defn}
+
+\begin{defn}
+    Let $F,G:\mathsf{C}\to\mathsf{D}$ be two functors, a \emph{natural transformation} from $F$ to $G$ is a family of isomorphisms $\{\varphi_A\in\Hom_{\mathsf{D}}(F(A),G(A))\}_{A\in\Obj\mathsf{C}}$, which satisfies that for any $A,B\in\Obj\mathsf{C}$ and $f\in\Hom_\mathsf{C}(A,B)$, the diagram
+    \[\begin{tikzcd}
+        F(A) \ar[r, "\varphi_A"] \ar[d, "F(f)"] & G(A) \ar[d, "G(f)"] \\
+        F(B) \ar[r, "\varphi_B"] & G(B)
+    \end{tikzcd}\]
+    is commutative.
+\end{defn}
+
+\begin{eg}
+    Let $\mathsf{C}$ be a small category and $\mathsf{D}$ be an arbitrary category, the functors from $\mathsf{C}$ to $\mathsf{D}$ together with natural transformations consists a category, we denote it by $\Fun(\mathsf{C},\mathsf{D})$.
+    We ask $\mathsf{C}$ to be small in order to make the natural transformations between two functors consist a set.
+\end{eg}
+
+\begin{defn}
+    Let $\mathsf{C}$ and $\mathsf{D}$ be two categories, $\mathsf{C}$ and $\mathsf{D}$ are called \emph{equivalent} if there exists functors $F:\mathsf{C}\to\mathsf{D}$ and $G:\mathsf{D}\to\mathsf{C}$ and natural isomorphisms $\varphi,\psi$, satisfiying $G\circ F\xrightarrow{\varphi}\id_\mathsf{C}$ and $F\circ G\xrightarrow{\psi}\id_\mathsf{D}$.
+    If $\varphi$ and $\psi$ are identities, then we call $\mathsf{C}$ and $\mathsf{D}$ are \emph{isomorphic}.
+\end{defn}
+
+\section{Limits and Colimits}
+
+In this section we introduce limits and colimits of functors.
+We shall use limits and colimits to define products, coproducts, pushout, pullback and so on.
+We shall also introduce equalizers and coequalizers, and the notion of completeness and cocompleteness.
+Finally we shall focus on filtered colimits, i.e.\ direct limits.
+We shall give concrete construction of filtered colimits, and some examples.
+
+\begin{nota}
+    Let $\mathsf{I}$ be a small category and $\mathsf{C}$ be an arbitrary category.
+    We denote $\underline{A}\in\Fun(\mathsf{I},\mathsf{C})$ to be the functor that assigns every $i\in\Obj\mathsf{I}$ to $A$ and every morphism to $\id_A$.
+\end{nota}
+
+\begin{defn}
+    Let $\mathsf{I}$ be a small category, $\mathsf{C}$ be an arbitrary category, and $F\in\Fun(\mathsf{I},\mathsf{C})$.
+    The \emph{colimit} of $F$ is a functor $\underline{\colim{F}}$ for some $\colim{F}\in\Obj\mathsf{C}$ together with a natural transformation $\iota:F\to\underline{\colim{F}}$, charachterized by following universal property:
+    For any natural transformation $F\to\underline{A}$ for some $A\in\Obj\mathsf{C}$ factors through $\iota$ uniquely.
+    Conversely, the \emph{limit} of $F$ is a functor $\underline{\lim{F}}$ for some $\lim{F}\in\Obj\mathsf{C}$ together with a natural transformation $\pi:\underline{\lim{F}}\to F$, charachterized by following universal property:
+    For any natural transformation $\underline{A}$ for some $A\in\Obj\mathsf{C}$ factors through $\pi$ uniquely.
+\end{defn}
+
+\begin{rem}
+    One can write the definition of colimits and limits explicitly.
+    For $\colim{F}$ under above settings, this means the following data:
+    Let $i\in\mathsf{I}$, we map $i$ to $F(i)$, $f:i\to j$ to $F(f):F(i)\to F(j)$, and have the \emph{structure morphism} $\iota_i:F(i)\to\colim{F}$.
+    Moreover, the universal property turns to be that for any given $A\in\Obj\mathsf{C}$ and morphisms $\varphi_i:F(i)\to A$ for each $i\in\Obj\mathsf{C}$, there exists a unique morphism $\tilde\varphi:\colim{F}\to A$, such that for any $f:i\to j$, the following diagram commutes:
+    \[\begin{tikzcd}
+        F(i) \ar[rr, "{F(f)}"] \ar[rd, "{\iota_i}"] \ar[rdd, "{\varphi_i}"'] & \ & F(j) \ar[ld, "{\iota_j}"'] \ar[ldd, "{\varphi_j}"] \\
+        \ & \colim{F} \ar[d, dashed, "{\tilde\varphi}"] & \ \\
+        \ & A. & \
+    \end{tikzcd}\]
+    The charachterization for limits is nothing but reversing arrows.
+\end{rem}
+
+\begin{nota}
+    If $\mathsf{I}$ turns to be an index set, we often write limit and colimit of $F$ to be
+    \[\lim_{i\in\mathsf{I}}F(i),\quad\colim_{i\in\mathsf{I}}F(i).\]
+    Or we write
+    \[\lim_{U\in\mathsf{C}}U,\quad\colim_{U\in\mathsf{C}}U,\]
+    if $\mathsf{C}$ happens to be the ``image'' of $F$.
+\end{nota}
+
+\begin{defn}
+    If $\mathsf{I}$ is a small discrete category, that is, we have morphisms
+    \[\Hom_\mathsf{I}(i,j)=\begin{cases}
+        \{\id\}, & i=j,\\
+        \varnothing, & i\neq j,
+    \end{cases}\]
+    then for $F\in\Fun(\mathsf{I},\mathsf{C})$, the limit of $F$ is called \emph{product} of $F$, and the colimit is called \emph{coproduct} of $F$.
+\end{defn}
+
+We have the following two well known propositions, whose proofs are direct.
+\begin{prop}
+    The product exists in categories $\mathsf{Set}$, $\mathsf{Grp}$, $\mathsf{CRing}$, $\mathsf{Mod}_A$ and $\mathsf{Top}$, whose products are Cartesian products with projections.
+    Notice that for $\mathsf{Grp}$, $\mathsf{CRing}$ and $\mathsf{Mod}_A$, projections are indeed homomorphisms.
+    For $\mathsf{Top}$, let $\{X_i\}_{i\in\mathsf{I}}$ be topological spaces with corresponding basis $B_i$ for each $i\in\mathsf{I}$, then the topology of $\prod_{i\in\mathsf{I}}X_i$ is generated by
+    \[\left\{\left.\prod_{i\in\mathsf{I}}U_i\subset\prod_{i\in\mathsf{I}}X_i\right|\ U_i\neq X_i\text{ for finite many }i\in\mathsf{I}\right\}.\]
+\end{prop}
+
+\begin{prop}
+    The coproduct exists in categories
+    \begin{enumerate}[(1)]
+        \item $\mathsf{Set}$ and $\mathsf{Top}$, whose coproducts are disjoint unions with embeddings.
+        In $\mathsf{Top}$, for topological spaces $\{X_i\}_{i\in\mathsf{I}}$, a subset $U\subset\coprod_{i\in\mathsf{I}}X_i$ is open if and only if $U\cap X_i$ is open for $i\in\mathsf{I}$.
+        \item $\mathsf{Grp}$, whose coproducts are free products with embeddings.
+        \item $\mathsf{Mod}_A$, whose coproducts are direct sums with embeddings.
+        In particular, $\mathsf{Ab}=\mathsf{Mod}_\mathbb{Z}$, coproducts exist in the category of abelian groups.
+    \end{enumerate}
+\end{prop}
+
+\begin{rem}\label{need ref 1}
+    We will discuss the coproducts in $\mathsf{CRing}$ in commutative algebra chapter. % give a ref after finishing tensor product
+\end{rem}

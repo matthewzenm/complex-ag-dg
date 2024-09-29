@@ -1,0 +1,51 @@
+\documentclass{book}
+
+\usepackage[paper=b5paper]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+% \usepackage{mathptmx}
+\usepackage{tikz-cd}
+\usepackage[shortlabels]{enumitem}
+\usepackage{indentfirst}
+\usepackage{fixdif}
+\usepackage{hyperref}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{nota}{Notation}
+\newtheorem{eg}{Example}[chapter]
+\theoremstyle{plain}
+\newtheorem{thm}[eg]{Theorem}
+\newtheorem{prop}[eg]{Proposition}
+\newtheorem{lem}[eg]{Lemma}
+\newtheorem{cor}[eg]{Corollary}
+\theoremstyle{remark}
+\newtheorem{rem}[eg]{Remark}
+\newtheorem*{pro}{Problem}
+
+\DeclareMathOperator{\Obj}{Obj}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Fun}{Fun}
+\DeclareMathOperator*{\colim}{colim}
+\newcommand{\id}{\mathrm{id}}
+\renewcommand{\thepart}{\arabic{part}}
+
+
+\title{Notes on Complex Algebraic and Differential Geometry}
+\author{Mengchen Zeng}
+\date{Last Compile: \today}
+
+\begin{document}
+\maketitle
+
+\frontmatter
+
+\mainmatter
+
+\setcounter{part}{-1}
+\part{Preliminaries}
+\input{chap/cat-comalg.tex}
+
+\end{document}
